@@ -68,7 +68,7 @@ int main(int argc, char const *argv[]) {
     }
 
     if(atoi(argv[4]) == 1){ //executa sequencial
-        omp_set_num_threads(0);// mudar o número de threads para apenas 1(sequencial)
+        omp_set_num_threads(1);// mudar o número de threads para apenas 1(sequencial)
         omp_set_dynamic(0);
         omp_set_nested(0);
         start_sin = omp_get_wtime( );
@@ -82,13 +82,13 @@ int main(int argc, char const *argv[]) {
             }//fim for j
         } //fim for i
         end_sin = omp_get_wtime( );
-        wtick_sin = omp_get_wtick( );
+        // wtick_sin = omp_get_wtick( );
 
         //abre arquivo apenas para saida
         std::ofstream sin_time_mm ("mm_single_time.txt", std::ios::out);
 
         if(sin_time_mm.is_open()) { // escreve o tempo se arquivo estiver aberto
-            sin_time_mm << "Tempo: " << (end_sin-start_sin)/wtick_sin << "(seg)\n";
+            sin_time_mm << "Tempo: " << (end_sin-start_sin) << "(seg)\n";
             sin_time_mm.close();
         }
     }//fim if
@@ -115,13 +115,13 @@ int main(int argc, char const *argv[]) {
             }//fim for j
         } //fim for i
         end_omp = omp_get_wtime( );
-        wtick_omp = omp_get_wtick( );
+        // wtick_omp = omp_get_wtick( );
 
         // abre aruqivo apenas para saida
         std::ofstream omp_time_mm ("omp_mm_time.txt", std::ios::out);
 
         if(omp_time_mm.is_open()) { // escreve o tempo se arquivo estiver aberto
-            omp_time_mm << "Tempo: " << (end_omp-start_omp)/wtick_omp << "(seg)\n";
+            omp_time_mm << "Tempo: " << (end_omp-start_omp) << "(seg)\n";
             omp_time_mm.close();
         }
     } //fim do else-if
