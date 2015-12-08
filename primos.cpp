@@ -27,10 +27,6 @@ int main(int argc, char const *argv[]) {
     #pragma omp parallel for private(i) num_threads(atoi(argv[2])) collapse(1)
     for (i = 0; i < n; i++) {
         vet[i] = is_prime(i);
-        #pragma omp critical
-        {
-            std::cout << "Thread :" << omp_get_thread_num() << "\t i: " << i << "\t n: " << n << std::endl;
-        }
     }
     end = omp_get_wtime();
 
